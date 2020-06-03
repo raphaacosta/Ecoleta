@@ -1,0 +1,27 @@
+import Knex from 'knex';
+
+export async function up(knex: Knex) {
+  return knex.schema.createTable('point_items', table => {
+    table.increments('id').primary();
+
+    table.integer('point_id')
+      .unsigned()
+      .notNullable()
+      .references('id')
+      .inTable('points')
+      .onUpdate('CASCADE')
+      .onDelete('CASCADE');
+
+    table.integer('item_id')
+      .unsigned()
+      .notNullable()
+      .references('id')
+      .inTable('items')
+      .onUpdate('CASCADE')
+      .onDelete('CASCADE');
+  });
+}
+
+export async function down(knex: Knex) {
+  return knex.schema.dropTable('point_items');
+}
