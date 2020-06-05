@@ -1,5 +1,5 @@
 <h4>
-  <img src="./web/src/assets/home-background.svg"/>
+  <img src="./web/src/assets/logo.svg" width="250px"/>
 </h4>
 <p align="center">
   <a href="http://rocketseat.com.br">
