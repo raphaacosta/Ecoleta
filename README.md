@@ -1,12 +1,12 @@
-<h4>
+<h4 align="center">
   <img src="./web/src/assets/logo.svg" width="250px"/>
 </h4>
 <p align="center">
   <a href="http://rocketseat.com.br">
-    <img alt="Made by Rocketseat" src="https://img.shields.io/badge/Made%20by-Rocketseat-red"/>
+    <img alt="Made by Rocketseat" src="https://img.shields.io/badge/Made%20by-Rocketseat-brightgreen"/>
   </a>
   <a href="https://github.com/diego3g">
-    <img alt="Ministered by Diego Fernandes" src="https://img.shields.io/badge/Made%20by-Rocketseat-red"/>
+    <img alt="Ministered by Diego Fernandes" src="https://img.shields.io/badge/Ministered%20by-Diego%20Fernandes-brightgreen"/>
   </a>
 </p>
 
