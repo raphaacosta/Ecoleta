@@ -31,7 +31,7 @@
 
 # :memo: Sobre o projeto
   O Ecoleta é uma aplicação que visa facilitar a coleta de resíduos e assim, diminuir a poluição do nosso planeta.
-  Pela aplicação web empresas ou mercados podem cadastrar um ponto de coleta para os resíduos, na aplicação mobile é possível visualizar esses pontos de coleta e entrar em contato com a entidade que cadastrou ele, e ver como pode ser feita a coleta.
+  Pela aplicação web entidades podem cadastrar um ponto de coleta para os resíduos, na aplicação mobile é possível visualizar esses pontos de coleta e entrar em contato com a entidade que cadastrou ele.
 
 # :computer: Tecnologias Usadas
 
@@ -43,6 +43,7 @@ As seguintes tecnologias utilizadas neste projeto:
 - [ReactJS](https://reactjs.org/)
 - [React-Native](https://react-native.dev)
 - [Expo.io](https://expo.io/)
+- [Typescript](https://www.typescriptlang.org/)
 
 # :muscle: Como contribuir
 
