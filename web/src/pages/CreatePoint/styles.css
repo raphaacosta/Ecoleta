@@ -6,7 +6,7 @@
 }
 
 #page-create-point header {
-  margin-top: 48px;
+  margin-top: 20px;
 
   display: flex;
   justify-content: space-between;
@@ -200,4 +200,39 @@
 .items-grid li.selected {
   background: #E1FAEC;
   border: 2px solid #34CB79;
+}
+
+#message {
+  background-color: #0E0A14Ef;
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 400ms;
+}
+
+#message p {
+  width: calc(100% - 60px);
+  height: calc(100% - 60px);
+  border-radius: 10px;
+  border: 1px dashed #4ECB79;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #333;
+}
+
+#message p svg{
+  color: #4ECB79;
+  width: 24px;
+  height: 24px;
+  margin-bottom: 8px;
+}
+
+#message.hide {
+  display: none;
 }
