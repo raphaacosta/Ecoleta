@@ -28,7 +28,7 @@ interface Params {
   city: string;
 }
 
-const Points = () => {
+const Points: React.FC = () => {
   const [items, setItems] = useState<Item[]>([]);
   const [points, setPoints] = useState<Point[]>([]);
   const [selectedItems, setSelectedItems] = useState<number[]>([]);

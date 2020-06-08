@@ -1,19 +1,76 @@
-import React, { useState } from 'react';
-import { Feather } from '@expo/vector-icons'
+import React, { useState, useEffect } from 'react';
+import { Feather as Icon } from '@expo/vector-icons'
 import { RectButton } from 'react-native-gesture-handler';
 import { View, ImageBackground, Text, Image, StyleSheet, TextInput, KeyboardAvoidingView, Platform } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import RNPickerSelect  from 'react-native-picker-select';
+import axios from 'axios';
 
-const Home = () => {
-  const [uf, setUf] = useState('');
-  const [city, setCity] = useState('');
+interface IBGEUFResponse {
+  sigla: string;
+}
+
+interface IBGECityResponse {
+  nome: string;
+}
+
+const Home: React.FC = () => {
+  const [ufs, setUfs] = useState<string[]>([]);
+  const [cities, setCities] = useState<string[]>([]);
+  const [selectedUf, setSelectedUf] = useState('0');
+  const [selectedCity, setSelectedCity] = useState('0');
 
   const navigation = useNavigation();
 
+  const pickerSelectStyles = {
+    inputAndroid: {
+      height: 50,
+      backgroundColor: '#FFF',
+      borderRadius: 10,
+      marginBottom: 8,
+      paddingHorizontal: 24,
+      fontSize: 16,
+    },
+    inputIOS: {
+      height: 50,
+      backgroundColor: '#FFF',
+      borderRadius: 10,
+      marginBottom: 8,
+      paddingHorizontal: 24,
+      fontSize: 16,
+    },
+  }
+
+  useEffect(() => {
+    if (selectedUf === '0') return;
+
+    axios
+      .get<IBGECityResponse[]>(
+        `https://servicodados.ibge.gov.br/api/v1/localidades/estados/${selectedUf}/municipios`,
+      )
+      .then(response => {
+        const cityNames = response.data.map(city => city.nome);
+
+        setCities(cityNames);
+      });
+  }, [selectedUf]);
+
+  useEffect(() => {
+    axios
+      .get<IBGEUFResponse[]>(
+        'https://servicodados.ibge.gov.br/api/v1/localidades/estados',
+      )
+      .then(response => {
+        const ufInitials = response.data.map(uf => uf.sigla);
+
+        setUfs(ufInitials);
+      });
+  }, []);
+
   function handleNavigationToPoints(){
     navigation.navigate('Points', {
-      uf,
-      city,
+      selectedUf,
+      selectedCity,
     });
   }
 
@@ -33,28 +90,35 @@ const Home = () => {
         </View>
 
         <View style={styles.footer}>
-          <TextInput 
-            style={styles.input}
-            placeholder="Digite a UF"
-            value={uf}
-            maxLength={2}
-            autoCapitalize="characters"
-            autoCorrect={false}
-            onChangeText={setUf}            
+          <RNPickerSelect
+              placeholder={{ label: 'selecione uma uf'}}
+              value={selectedUf}
+              style={pickerSelectStyles}
+              useNativeAndroidPickerStyle={false}
+              onValueChange={selectedUf => setSelectedUf(selectedUf)}
+              items={ufs?.map(uf => ({
+                label: uf,
+                value: uf
+              }))}
           />
-
-          <TextInput 
-            style={styles.input}
-            placeholder="Digite a cidade"
-            value={city}
-            autoCorrect={false}
-            onChangeText={setCity}
+          <RNPickerSelect
+              placeholder={{ label: 'selecione uma cidade'}}
+              value={selectedCity}
+              style={pickerSelectStyles}
+              useNativeAndroidPickerStyle={false}
+              onValueChange={selectedCity => setSelectedCity(selectedCity)}
+              items={cities?.map(city => ({
+                label: city,
+                value: city
+              }))}
+              
           />
+          
 
           <RectButton style={styles.button} onPress={handleNavigationToPoints}>
             <View style={styles.buttonIcon}>
               <Text >
-                <Feather name="arrow-right" color="#FFF" size={24} />
+                <Icon name="arrow-right" color="#FFF" size={24} />
               </Text>
             </View>
             <Text style={styles.buttonText}>Entrar</Text>
@@ -78,32 +142,23 @@ const styles = StyleSheet.create({
 
   title: {
     color: '#322153',
-    fontSize: 32,
+    fontSize: 27,
     fontFamily: 'Ubuntu_700Bold',
     maxWidth: 260,
-    marginTop: 64,
+    marginTop: 44,
   },
 
   description: {
     color: '#6C6C80',
     fontSize: 16,
-    marginTop: 16,
+    marginTop: 10,
     fontFamily: 'Roboto_400Regular',
     maxWidth: 260,
     lineHeight: 24,
   },
 
-  footer: {},
-
-  select: {},
-
-  input: {
-    height: 60,
-    backgroundColor: '#FFF',
-    borderRadius: 10,
-    marginBottom: 8,
-    paddingHorizontal: 24,
-    fontSize: 16,
+  footer: {
+    marginTop: 20,
   },
 
   button: {
@@ -119,6 +174,7 @@ const styles = StyleSheet.create({
   buttonIcon: {
     height: 60,
     width: 60,
+    borderRadius: 8,
     backgroundColor: 'rgba(0, 0, 0, 0.1)',
     justifyContent: 'center',
     alignItems: 'center'
@@ -127,6 +183,7 @@ const styles = StyleSheet.create({
   buttonText: {
     flex: 1,
     justifyContent: 'center',
+    alignItems: 'center',
     textAlign: 'center',
     color: '#FFF',
     fontFamily: 'Roboto_500Medium',

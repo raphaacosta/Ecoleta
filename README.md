@@ -1,12 +1,12 @@
-<h4>
-  <img src="./web/src/assets/home-background.svg"/>
+<h4 align="center">
+  <img src="./web/src/assets/logo.svg" width="250px"/>
 </h4>
 <p align="center">
   <a href="http://rocketseat.com.br">
-    <img alt="Made by Rocketseat" src="https://img.shields.io/badge/Made%20by-Rocketseat-red"/>
+    <img alt="Made by Rocketseat" src="https://img.shields.io/badge/Made%20by-Rocketseat-brightgreen"/>
   </a>
   <a href="https://github.com/diego3g">
-    <img alt="Ministered by Diego Fernandes" src="https://img.shields.io/badge/Made%20by-Rocketseat-red"/>
+    <img alt="Ministered by Diego Fernandes" src="https://img.shields.io/badge/Ministered%20by-Diego%20Fernandes-brightgreen"/>
   </a>
 </p>
 
@@ -31,7 +31,7 @@
 
 # :memo: Sobre o projeto
   O Ecoleta é uma aplicação que visa facilitar a coleta de resíduos e assim, diminuir a poluição do nosso planeta.
-  Pela aplicação web empresas ou mercados podem cadastrar um ponto de coleta para os resíduos, na aplicação mobile é possível visualizar esses pontos de coleta e entrar em contato com a entidade que cadastrou ele, e ver como pode ser feita a coleta.
+  Pela aplicação web entidades podem cadastrar um ponto de coleta para os resíduos, na aplicação mobile é possível visualizar esses pontos de coleta e entrar em contato com a entidade que cadastrou ele.
 
 # :computer: Tecnologias Usadas
 
@@ -43,6 +43,7 @@ As seguintes tecnologias utilizadas neste projeto:
 - [ReactJS](https://reactjs.org/)
 - [React-Native](https://react-native.dev)
 - [Expo.io](https://expo.io/)
+- [Typescript](https://www.typescriptlang.org/)
 
 # :muscle: Como contribuir
 
