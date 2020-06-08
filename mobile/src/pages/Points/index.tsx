@@ -198,12 +198,12 @@ const styles = StyleSheet.create({
   },
 
   mapMarker: {
-    width: 90,
+    width: 100,
     height: 80, 
   },
 
   mapMarkerContainer: {
-    width: 90,
+    width: 100,
     height: 70,
     backgroundColor: '#34CB79',
     flexDirection: 'column',
@@ -213,7 +213,7 @@ const styles = StyleSheet.create({
   },
 
   mapMarkerImage: {
-    width: 90,
+    width: 100,
     height: 45,
     resizeMode: 'cover',
   },
