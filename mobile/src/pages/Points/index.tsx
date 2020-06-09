@@ -26,6 +26,9 @@ interface Point {
 interface Params {
   uf: string;
   city: string;
+  items: {
+    id: number;
+  }[];
 }
 
 const Points: React.FC = () => {
@@ -35,7 +38,7 @@ const Points: React.FC = () => {
 
   const navigation = useNavigation();
   const route = useRoute();
-  const routeParams = route.params as Params;
+  const { city, uf } = route.params as Params;
 
   const [initialPosition, setInitialPosition] = useState<number[]>([0,0]);
 
@@ -60,15 +63,14 @@ const Points: React.FC = () => {
 
       setInitialPosition([latitude, longitude]);
     }
-
     loadPosition();
   }, []);
 
   useEffect(() => {
     api.get('points', {
       params: {
-        city: routeParams.city,
-        uf: routeParams.uf,
+        city,
+        uf,
         items: selectedItems
       }
     }).then(response => {
@@ -81,7 +83,6 @@ const Points: React.FC = () => {
 
     if (alreadySelected >= 0) {
       const filteredItems = selectedItems.filter(item => item !== id);
-
       setSelectedItems(filteredItems);
     } else {
       setSelectedItems([ ...selectedItems, id]);

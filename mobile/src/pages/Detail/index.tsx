@@ -36,7 +36,6 @@ const Detail = () => {
   useEffect(() => {
     api.get(`points/${routeParams.point_id}`).then(response => {
       setData(response.data);
-      console.log(response.data);
     });
   },[]);
 

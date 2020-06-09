@@ -5,6 +5,7 @@ import { View, ImageBackground, Text, Image, StyleSheet, TextInput, KeyboardAvoi
 import { useNavigation } from '@react-navigation/native';
 import RNPickerSelect  from 'react-native-picker-select';
 import axios from 'axios';
+import Constants from 'expo-constants';
 
 interface IBGEUFResponse {
   sigla: string;
@@ -69,8 +70,8 @@ const Home: React.FC = () => {
 
   function handleNavigationToPoints(){
     navigation.navigate('Points', {
-      selectedUf,
-      selectedCity,
+      uf: selectedUf,
+      city: selectedCity,
     });
   }
 
@@ -95,8 +96,8 @@ const Home: React.FC = () => {
               value={selectedUf}
               style={pickerSelectStyles}
               useNativeAndroidPickerStyle={false}
-              onValueChange={selectedUf => setSelectedUf(selectedUf)}
-              items={ufs?.map(uf => ({
+              onValueChange={(selectedUf) => setSelectedUf(selectedUf)}
+              items={ufs.map(uf => ({
                 label: uf,
                 value: uf
               }))}
@@ -106,14 +107,12 @@ const Home: React.FC = () => {
               value={selectedCity}
               style={pickerSelectStyles}
               useNativeAndroidPickerStyle={false}
-              onValueChange={selectedCity => setSelectedCity(selectedCity)}
-              items={cities?.map(city => ({
+              onValueChange={(selectedCity) => setSelectedCity(selectedCity)}
+              items={cities.map(city => ({
                 label: city,
                 value: city
               }))}
-              
           />
-          
 
           <RectButton style={styles.button} onPress={handleNavigationToPoints}>
             <View style={styles.buttonIcon}>
@@ -133,6 +132,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 32,
+    paddingTop: Constants.statusBarHeight + 20,
   },
 
   main: {
