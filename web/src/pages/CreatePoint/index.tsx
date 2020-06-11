@@ -8,7 +8,14 @@ import axios from 'axios';
 
 import Dropzone from '../../components/Dropzone';
 
-import './styles.css';
+import { 
+  PageCreatePoint,
+  Header,
+  Form,
+  FieldGroup,
+  ItemsList,
+  Message
+ } from './styles';
 
 import logo from '../../assets/logo.svg';
 
@@ -109,16 +116,6 @@ const CreatePoint = () => {
     setFormData({ ...formData, [name]: value });
   }
 
-  // function message() {
-  //   const buttonSubmit = document.querySelector("#page-create-point form button");
-  //   const show = document.querySelector("#message");
-
-  //   buttonSubmit?.addEventListener("click",() => {
-  //     show?.classList.remove("hide");
-  //   });
-    
-  // }
-
   async function handleSubmit(event: FormEvent) {
     event.preventDefault();
 
@@ -163,17 +160,17 @@ const CreatePoint = () => {
 
   return(
     <>
-      <div id="page-create-point">
-        <header>
+      <PageCreatePoint>
+        <Header>
           <img src={logo} alt="Ecoleta" />
 
           <Link to="/">
             <FiArrowLeft />
             Voltar para a Home
           </Link>
-        </header>
+        </Header>
 
-        <form onSubmit={handleSubmit}>
+        <Form onSubmit={handleSubmit}>
           <h1>Cadastro do <br/> ponto de coleta</h1>
 
           <Dropzone onFileUploaded={setSelectedFile}/>
@@ -192,7 +189,7 @@ const CreatePoint = () => {
               />
             </div>
 
-            <div className="field-group">
+            <FieldGroup>
               <div className="field">
                 <label htmlFor="email">E-mail</label>
                 <input 
@@ -211,7 +208,7 @@ const CreatePoint = () => {
                 onChange={handleInputChange}
               />
               </div>
-            </div>
+            </FieldGroup>
 
           </fieldset>
 
@@ -230,7 +227,7 @@ const CreatePoint = () => {
               <Marker position={selectedPosition}/>
             </Map>
 
-            <div className="field-group">
+            <FieldGroup>
               <div className="field">
                 <label htmlFor="uf">UF</label>
                 <select 
@@ -259,7 +256,7 @@ const CreatePoint = () => {
                     ))}
                 </select>
               </div>
-            </div>
+            </FieldGroup>
             
           </fieldset>
 
@@ -269,31 +266,33 @@ const CreatePoint = () => {
               <span>Selecione um ou mais itens abaixo</span>
             </legend>
 
-            <ul className="items-grid">
-              {items.map(item => (
-              <li 
-                key={item.id} 
-                onClick={() => handleSelectItem(item.id)}
-                className={selectedItems.includes(item.id) ? 'selected' : ''}  
-              >
-                <img src={item.image_url} alt={item.title}/>
-                <span>{item.title}</span>
+            <ItemsList>
+            {items?.map((item: Item) => (
+              <li key={item.id}>
+                <button
+                  type="button"
+                  onClick={() => handleSelectItem(item.id)}
+                  className={selectedItems.includes(item.id) ? 'selected' : ''}
+                >
+                  <img src={item.image_url} alt={item.title} />
+                  <span>{item.title}</span>
+                </button>
               </li>
-              ))}
-            </ul>
+            ))}
+          </ItemsList>
           </fieldset>
 
           <button type="submit">
             Cadastrar ponto de coleta
           </button>
-        </form>
-      </div>
-      <div id="message" className="hide">
+        </Form>
+      </PageCreatePoint>
+      <Message>
         <p>
           <FiCheck />
           Cadastro Concluído
         </p>
-      </div>
+      </Message>
     </>
   );
 }
