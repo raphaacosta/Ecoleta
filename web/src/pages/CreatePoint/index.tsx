@@ -1,23 +1,28 @@
 import React, { useState, useEffect, ChangeEvent, FormEvent } from 'react';
-import { Link, useHistory } from 'react-router-dom';
-import { FiArrowLeft, FiCheck } from 'react-icons/fi';
+import { useHistory } from 'react-router-dom';
+import { FiCheck } from 'react-icons/fi';
 import { Map, TileLayer, Marker } from 'react-leaflet'; 
 import { LeafletMouseEvent } from 'leaflet';
 import api from '../../services/api';
 import axios from 'axios';
+import { ThemeProvider, DefaultTheme } from 'styled-components';
+import light from '../../styles/themes/light';
+import dracule from '../../styles/themes/dracule';
+import usePersistedState from '../../utils/usePersistedState';
+
+import Header from '../../components/Header';
 
 import Dropzone from '../../components/Dropzone';
 
+import GlobalStyle from '../../styles/global';
 import { 
   PageCreatePoint,
-  Header,
   Form,
   FieldGroup,
   ItemsList,
   Message
  } from './styles';
 
-import logo from '../../assets/logo.svg';
 
 interface Item {
   id: number;
@@ -33,10 +38,12 @@ interface IBGECityResponse {
   nome: string;
 }
 
-const CreatePoint = () => {
+const CreatePoint: React.FC = () => {
+  const pathName = 'CreatePoint';
   const [ items, setItems ] = useState<Item[]>([]);
   const [ ufs, setUfs ] = useState<string[]>([]);
   const [ cities, setCities ] = useState<string[]>([]);
+  const [theme, setTheme] = usePersistedState<DefaultTheme>('theme', dracule);
 
   const [ initialPosition, setInitialPosition ] = useState<[number, number]>([0,0]);
 
@@ -158,17 +165,16 @@ const CreatePoint = () => {
     }
   }
 
-  return(
-    <>
-      <PageCreatePoint>
-        <Header>
-          <img src={logo} alt="Ecoleta" />
+  const toggleTheme = () => {
+    setTheme(theme.title === 'light' ? dracule : light);
+  }
 
-          <Link to="/">
-            <FiArrowLeft />
-            Voltar para a Home
-          </Link>
-        </Header>
+  return(
+    <ThemeProvider theme={theme}>
+      <GlobalStyle />
+      <PageCreatePoint>
+        
+        <Header toggleTheme={toggleTheme} pathName={pathName}/>
 
         <Form onSubmit={handleSubmit}>
           <h1>Cadastro do <br/> ponto de coleta</h1>
@@ -293,7 +299,7 @@ const CreatePoint = () => {
           Cadastro Concluído
         </p>
       </Message>
-    </>
+    </ThemeProvider>
   );
 }
 

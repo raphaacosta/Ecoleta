@@ -15,7 +15,7 @@ export const Header = styled.header`
   align-items: center;
 
   > a {
-    color: var(--title-color);
+    color: ${({ theme }) => theme.colors.title};
     font-weight: bold;
     text-decoration: none;
     
@@ -24,7 +24,7 @@ export const Header = styled.header`
 
     > svg {
       margin-right: 16px;
-      color: var(--primary-color);
+      color: ${({ theme }) => theme.colors.primary};
     }
   }
 `;
@@ -33,7 +33,7 @@ export const Form = styled.form`
   margin: 80px auto;
   padding: 64px;
   max-width: 730px;
-  background: var(--box-color);
+  background: ${({ theme }) => theme.colors.box};
   border-radius: 8px;
   display: flex;
   flex-direction: column;
@@ -62,7 +62,7 @@ export const Form = styled.form`
     span {
       font-size: 14px;
       font-weight: normal;
-      color: var(--text-color);
+      color: ${({ theme }) => theme.colors.text};
     }
   }
 
@@ -81,12 +81,12 @@ export const Form = styled.form`
     input[type='email'],
     input[type='number'] {
       flex: 1;
-      background: var(--background-color);
+      background: ${({ theme }) => theme.colors.background};
       border-radius: 8px;
       border: 0;
       padding: 16px 24px;
       font-size: 16px;
-      color: var(--text-color);
+      color: ${({ theme }) => theme.colors.text};
     }
 
     select {
@@ -94,12 +94,12 @@ export const Form = styled.form`
       -moz-appearance: none;
       appearance: none;
       flex: 1;
-      background: var(--background-color);
+      background: ${({ theme }) => theme.colors.background};
       border-radius: 8px;
       border: 0;
       padding: 16px 24px;
       font-size: 16px;
-      color: var(--text-color);
+      color: ${({ theme }) => theme.colors.text};
     }
 
     & :disabled {
@@ -112,7 +112,7 @@ export const Form = styled.form`
     align-items: center;
 
     input[type='checkbox'] {
-      background: var(--primary-color);
+      background: ${({ theme }) => theme.colors.primary};
     }
 
     label {
@@ -130,9 +130,9 @@ export const Form = styled.form`
   > button {
     width: 260px;
     height: 56px;
-    background: var(--primary-color);
+    background: ${({ theme }) => theme.title === 'light' ? theme.colors.button : theme.colors.button};
     border-radius: 8px;
-    color: var(--text-color);
+    color: ${({ theme }) => theme.colors.title};
     font-weight: bold;
     font-size: 16px;
     border: 0;
@@ -141,7 +141,9 @@ export const Form = styled.form`
     transition: background-color 0.2s;
     cursor: pointer;
     &:hover {
-      background: #2fb86e;
+      background: ${({ theme }) => theme.title === 'light' ? theme.colors.secundary : theme.colors.background};
+      border: 2px solid ${({ theme }) => theme.title === 'light' ? theme.colors.title : theme.colors.title};
+      font-weight: bolder;
     }
   }
 `;
@@ -176,8 +178,8 @@ export const ItemsList = styled.ul`
       text-align: center;
 
       cursor: pointer;
-      background: var(--background-color);
-      border: 2px solid #FFF;
+      background: ${({ theme }) => theme.title === 'light' ? theme.colors.background :theme.colors.button};
+      border: 2px solid ${({ theme }) => theme.colors.background};
       width: 100%;
       height: 180px;
       border-radius: 8px;
@@ -188,12 +190,13 @@ export const ItemsList = styled.ul`
         margin-top: 12px;
         display: flex;
         align-items: center;
-        color: var(--title-color);
+        color: ${({ theme }) => theme.colors.title};
+        font-weight: bolder;
       }
 
       &.selected {
-        background: #e1faec;
-        border: 2px solid #34cb79;
+        background: ${({ theme }) => theme.title === 'light' ? theme.colors.tertiary : theme.colors.button};
+        border: 2px solid ${({ theme }) => theme.title === 'light' ? theme.colors.primary : theme.colors.title};
       }
     }
   }

@@ -47,7 +47,7 @@ export const Main = styled.main`
 
   h1 {
     font-size: 54px;
-    color: var(--title-color);
+    color: ${({ theme }) => theme.colors.title};
   }
 
   p{
@@ -60,7 +60,7 @@ export const Main = styled.main`
     width: 100%;
     max-width: 360px;
     height: 72px;
-    background: var(--primary-color);
+    background: ${({ theme }) => theme.colors.button};
     border-radius: 8px;
     text-decoration: none;
 
@@ -83,7 +83,7 @@ export const Main = styled.main`
     transition: background-color 0.2s;
 
     svg {
-      color: #FFF;
+      color: ${({ theme }) => theme.title === 'light' ? theme.colors.box : theme.colors.text};
       width: 20px;
       height: 20px;
     }
@@ -92,7 +92,7 @@ export const Main = styled.main`
   strong{
     flex: 1;
     text-align: center;
-    color: #FFF;
+    color: ${({ theme }) => theme.title === 'light' ? theme.colors.box : theme.colors.text};
   }
 
   @media (max-width: 900px) {

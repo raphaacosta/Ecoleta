@@ -1,24 +1,17 @@
 import { createGlobalStyle } from 'styled-components';
 
 export default createGlobalStyle`
-  :root {
-    --primary-color: #34CB79;
-    --title-color: #322153;
-    --text-color: #6C6C80;
-    --background-color: #F0F0F5;
-    --box-color: #FFF;
-  }
-
   * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    outline: none;
   }
 
   body {
-    background: var(--background-color);
+    background: ${({ theme }) => theme.colors.background};
     -webit-font-smoothing: antialiased;
-    color: var(--text-color);
+    color: ${({ theme }) => theme.colors.text};
   }
 
   border-style, input, button {
@@ -26,7 +19,7 @@ export default createGlobalStyle`
   }
 
   h1, h2, h3, h4, h5, h6 {
-    color: var(--title-color);
+    color: ${({ theme }) => theme.colors.title};
     font-family: Ubuntu;
   }
 `;
