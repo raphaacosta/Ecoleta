@@ -10,6 +10,22 @@
   </a>
 </p>
 
+# :computer: Web
+
+<div align="center">
+    <img alt="Ecoleta Web" src="./github_assets/Ecoleta.gif" width="900px">
+</div>
+
+# :iphone: Mobile
+
+<div style="display: flex; align-items: flex-start; justify-content: space-between;">
+  <img alt="Ecoleta Home-mobile" src="./github_assets/Home-mobile.png" width="250px"/>
+
+  <img alt="Ecoleta Searching-Point-mobile" src="./github_assets/Searching-Point-mobile.png" width="250px"/>
+
+  <img alt="Ecoleta Filtered-Point-mobile" src="./github_assets/Filtered-Point-mobile.png" width="250px"/>
+</div>
+
 # :rocket: Iniciando
 
 ### Requisitos
