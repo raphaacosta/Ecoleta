@@ -18,7 +18,7 @@
 
 # :iphone: Mobile
 
-<div style="display: flex; align-items: flex-start; justify-content: space-between;">
+<div align="center" style="display: flex; align-items: flex-start; justify-content: space-between;">
   <img alt="Ecoleta Home-mobile" src="./github_assets/Home-mobile.png" width="250px"/>
 
   <img alt="Ecoleta Searching-Point-mobile" src="./github_assets/Searching-Point-mobile.png" width="250px"/>
