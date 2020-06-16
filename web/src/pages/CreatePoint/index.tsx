@@ -1,26 +1,18 @@
 import React, { useState, useEffect, ChangeEvent, FormEvent } from 'react';
-import { useHistory } from 'react-router-dom';
-import { FiCheck } from 'react-icons/fi';
+import { Link, useHistory } from 'react-router-dom';
 import { Map, TileLayer, Marker } from 'react-leaflet'; 
+import { FiArrowLeft } from 'react-icons/fi';
 import { LeafletMouseEvent } from 'leaflet';
 import api from '../../services/api';
 import axios from 'axios';
-import { ThemeProvider, DefaultTheme } from 'styled-components';
-import light from '../../styles/themes/light';
-import dracule from '../../styles/themes/dracule';
-import usePersistedState from '../../utils/usePersistedState';
-
-import Header from '../../components/Header';
 
 import Dropzone from '../../components/Dropzone';
 
-import GlobalStyle from '../../styles/global';
 import { 
   PageCreatePoint,
   Form,
   FieldGroup,
-  ItemsList,
-  Message
+  ItemsList
  } from './styles';
 
 
@@ -39,11 +31,9 @@ interface IBGECityResponse {
 }
 
 const CreatePoint: React.FC = () => {
-  const pathName = 'CreatePoint';
   const [ items, setItems ] = useState<Item[]>([]);
   const [ ufs, setUfs ] = useState<string[]>([]);
   const [ cities, setCities ] = useState<string[]>([]);
-  const [theme, setTheme] = usePersistedState<DefaultTheme>('theme', dracule);
 
   const [ initialPosition, setInitialPosition ] = useState<[number, number]>([0,0]);
 
@@ -125,32 +115,38 @@ const CreatePoint: React.FC = () => {
 
   async function handleSubmit(event: FormEvent) {
     event.preventDefault();
+    
+    try{
+      const { name, email, whatsapp } = formData;
+      const uf = selectedUF;
+      const city = selectedCity;
+      const [latitude, longitude] = selectedPosition;
+      const items = selectedItems;
 
-    const { name, email, whatsapp } = formData;
-    const uf = selectedUF;
-    const city = selectedCity;
-    const [latitude, longitude] = selectedPosition;
-    const items = selectedItems;
+      const data = new FormData();
 
-    const data = new FormData();
+      data.append('name',name);
+      data.append('email',email);
+      data.append('whatsapp',whatsapp);
+      data.append('uf',uf);
+      data.append('city',city);
+      data.append('latitude',String(latitude));
+      data.append('longitude', String(longitude));
+      data.append('items',items.join(','));
 
-    data.append('name',name);
-    data.append('email',email);
-    data.append('whatsapp',whatsapp);
-    data.append('uf',uf);
-    data.append('city',city);
-    data.append('latitude',String(latitude));
-    data.append('longitude', String(longitude));
-    data.append('items',items.join(','));
+      if (selectedFile) {
+        data.append('image', selectedFile);
+      }
 
-    if (selectedFile) {
-      data.append('image', selectedFile);
+      await api.post('points', data);
+
+      alert('Cadastro realizado com sucesso');
+    
+      history.push('/');
+    } catch(err) {
+      alert('Erro ao realizar Cadastro')
     }
-
-    await api.post('points', data);
-
-    alert('Ponto Cadastrado cm sucesso');
-    history.push('/');
+    
   }
 
   function handleSelectItem(id: number) {
@@ -165,17 +161,14 @@ const CreatePoint: React.FC = () => {
     }
   }
 
-  const toggleTheme = () => {
-    setTheme(theme.title === 'light' ? dracule : light);
-  }
-
   return(
-    <ThemeProvider theme={theme}>
-      <GlobalStyle />
       <PageCreatePoint>
-        
-        <Header toggleTheme={toggleTheme} pathName={pathName}/>
-
+        <Link to="/">
+          <span>
+            <FiArrowLeft />
+          </span>
+          <strong>Voltar para a Home</strong>
+        </Link>
         <Form onSubmit={handleSubmit}>
           <h1>Cadastro do <br/> ponto de coleta</h1>
 
@@ -293,13 +286,6 @@ const CreatePoint: React.FC = () => {
           </button>
         </Form>
       </PageCreatePoint>
-      <Message>
-        <p>
-          <FiCheck />
-          Cadastro Concluído
-        </p>
-      </Message>
-    </ThemeProvider>
   );
 }
 

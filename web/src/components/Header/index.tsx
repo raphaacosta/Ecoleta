@@ -1,20 +1,19 @@
 import React, {  useContext } from 'react';
 import Switch from 'react-switch';
-import { Link } from 'react-router-dom';
-import { FiArrowLeft } from 'react-icons/fi';
+// import { Link } from 'react-router-dom';
+// import { FiArrowLeft } from 'react-icons/fi';
 import { ThemeContext } from 'styled-components';
 
-import logo from '../../assets/logo.svg'
+import logo from '../../assets/logo.svg';
 import logoDracule from '../../assets/logoDracule.png';
 
 import { Container, Content } from './styles';
 
 interface Props {
   toggleTheme(): void;
-  pathName: string;
 }
 
-const Header:React.FC<Props> = ({ toggleTheme, pathName }) => {
+const Header:React.FC<Props> = ({ toggleTheme }) => {
   const { colors, title } = useContext(ThemeContext);
 
   return (
@@ -25,16 +24,7 @@ const Header:React.FC<Props> = ({ toggleTheme, pathName }) => {
           ) : (
             <img src={logoDracule} alt="Ecoleta" />
           )}
-        
-          {pathName === "Home" ? () => {} : (
-            <Link to="/">
-              <span>
-                <FiArrowLeft />
-              </span>
-              <strong>Cadastre um ponto de coleta</strong>
-            </Link>
-          )}
-
+          
           <Switch 
             onChange={toggleTheme}
             checked={title === 'light'}

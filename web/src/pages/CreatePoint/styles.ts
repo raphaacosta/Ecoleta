@@ -5,32 +5,26 @@ export const PageCreatePoint = styled.div`
   max-width: 1100px;
 
   margin: 0 auto;
-`;
 
-export const Header = styled.header`
-  margin-top: 20px;
-
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  > a {
-    color: ${({ theme }) => theme.colors.title};
+  a {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    color: ${({ theme }) => theme.title === 'light' ? theme.colors.primary : theme.colors.text};
     font-weight: bold;
     text-decoration: none;
-    
-    display: flex;
-    align-items: center;
 
-    > svg {
+    svg {
+      display: flex;
+      align-items: center;
       margin-right: 16px;
-      color: ${({ theme }) => theme.colors.primary};
+      color: ${({ theme }) => theme.title === 'light' ? theme.colors.primary : theme.colors.text}
     }
   }
 `;
 
 export const Form = styled.form`
-  margin: 80px auto;
+  margin: 60px auto;
   padding: 64px;
   max-width: 730px;
   background: ${({ theme }) => theme.colors.box};
@@ -230,9 +224,5 @@ export const Message = styled.div`
       height: 24px;
       margin-bottom: 8px;
     }
-  }
-
-  .hide {
-    display: none;  
   }
 `;
