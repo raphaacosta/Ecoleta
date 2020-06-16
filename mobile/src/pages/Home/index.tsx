@@ -1,11 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { Feather as Icon } from '@expo/vector-icons'
-import { RectButton } from 'react-native-gesture-handler';
 import { View, ImageBackground, Text, Image, StyleSheet, TextInput, KeyboardAvoidingView, Platform } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import RNPickerSelect  from 'react-native-picker-select';
 import axios from 'axios';
-import Constants from 'expo-constants';
+import {  
+  Container,
+  Main,
+  Title,
+  Description,
+  Footer,
+  Button,
+  ButtonIcon,
+  ButtonText
+} from './styles';
 
 interface IBGEUFResponse {
   sigla: string;
@@ -77,20 +85,24 @@ const Home: React.FC = () => {
 
   return (
     <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
-      <ImageBackground 
+      <Container 
+        imageStyle={{
+          width: 274,
+          height: 368,
+          tintColor: 'green',
+          opacity: 0.2,
+        }}
         source={require('../../assets/home-background.png')} 
-        style={styles.container}
-        imageStyle={{ width: 274, height: 368 }}
       >
-        <View style={styles.main}>
+        <Main>
           <Image source={require('../../assets/logo.png')} />
           <View>
-            <Text style={styles.title}>Seu market place de coleta de resíduos</Text>
-            <Text style={styles.description}>Ajudamos pessoas a encontrarem pontos de coleta de forma eficiente.</Text>
+            <Title>Seu market place de coleta de resíduos</Title>
+            <Description>Ajudamos pessoas a encontrarem pontos de coleta de forma eficiente.</Description>
           </View>
-        </View>
+        </Main>
 
-        <View style={styles.footer}>
+        <Footer>
           <RNPickerSelect
               placeholder={{ label: 'selecione uma uf'}}
               value={selectedUf}
@@ -114,81 +126,18 @@ const Home: React.FC = () => {
               }))}
           />
 
-          <RectButton style={styles.button} onPress={handleNavigationToPoints}>
-            <View style={styles.buttonIcon}>
+          <Button onPress={handleNavigationToPoints}>
+            <ButtonIcon>
               <Text >
                 <Icon name="arrow-right" color="#FFF" size={24} />
               </Text>
-            </View>
-            <Text style={styles.buttonText}>Entrar</Text>
-          </RectButton>
-        </View>
-      </ImageBackground>
+            </ButtonIcon>
+            <ButtonText>Entrar</ButtonText>
+          </Button>
+        </Footer>
+      </Container>
     </KeyboardAvoidingView>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 32,
-    paddingTop: Constants.statusBarHeight + 20,
-  },
-
-  main: {
-    flex: 1,
-    justifyContent: 'center',
-  },
-
-  title: {
-    color: '#322153',
-    fontSize: 27,
-    fontFamily: 'Ubuntu_700Bold',
-    maxWidth: 260,
-    marginTop: 44,
-  },
-
-  description: {
-    color: '#6C6C80',
-    fontSize: 16,
-    marginTop: 10,
-    fontFamily: 'Roboto_400Regular',
-    maxWidth: 260,
-    lineHeight: 24,
-  },
-
-  footer: {
-    marginTop: 20,
-  },
-
-  button: {
-    backgroundColor: '#34CB79',
-    height: 60,
-    flexDirection: 'row',
-    borderRadius: 10,
-    overflow: 'hidden',
-    alignItems: 'center',
-    marginTop: 8,
-  },
-
-  buttonIcon: {
-    height: 60,
-    width: 60,
-    borderRadius: 8,
-    backgroundColor: 'rgba(0, 0, 0, 0.1)',
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-
-  buttonText: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    textAlign: 'center',
-    color: '#FFF',
-    fontFamily: 'Roboto_500Medium',
-    fontSize: 16,
-  }
-});
 
 export default Home;
