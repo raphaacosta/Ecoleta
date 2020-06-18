@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { AppLoading } from 'expo';
 import { StatusBar } from 'react-native';
+import AppProvider from './src/utils';
+import light from './src/themes/light';
+import dracule from './src/themes/dracule';
 
 import { Roboto_400Regular, Roboto_500Medium } from '@expo-google-fonts/roboto';
 import { Ubuntu_700Bold, useFonts } from '@expo-google-fonts/ubuntu';
@@ -19,9 +22,8 @@ export default function App() {
   }
 
   return (
-    <>
-      <StatusBar barStyle="dark-content" backgroundColor="transparent" translucent/>
+    <AppProvider>
       <Routes />
-    </>
+    </AppProvider>
   );
 }

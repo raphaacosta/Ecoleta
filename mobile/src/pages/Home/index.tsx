@@ -1,11 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Feather as Icon } from '@expo/vector-icons'
-import { View, ImageBackground, Text, Image, StyleSheet, TextInput, KeyboardAvoidingView, Platform } from 'react-native';
+import { View, Text, Image, KeyboardAvoidingView, Platform, Switch } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import RNPickerSelect  from 'react-native-picker-select';
+import { ThemeContext } from 'styled-components';
 import axios from 'axios';
+
+import { useTheme } from '../../utils/theme';
+
 import {  
   Container,
+  Header,
   Main,
   Title,
   Description,
@@ -24,17 +29,19 @@ interface IBGECityResponse {
 }
 
 const Home: React.FC = () => {
+  const { title, colors } = useContext(ThemeContext);
+  const { toggleTheme } = useTheme();
   const [ufs, setUfs] = useState<string[]>([]);
   const [cities, setCities] = useState<string[]>([]);
   const [selectedUf, setSelectedUf] = useState('0');
   const [selectedCity, setSelectedCity] = useState('0');
 
   const navigation = useNavigation();
-
+  
   const pickerSelectStyles = {
     inputAndroid: {
       height: 50,
-      backgroundColor: '#FFF',
+      backgroundColor: colors.select,
       borderRadius: 10,
       marginBottom: 8,
       paddingHorizontal: 24,
@@ -89,13 +96,23 @@ const Home: React.FC = () => {
         imageStyle={{
           width: 274,
           height: 368,
-          tintColor: 'green',
+          tintColor: title === 'light' ? 'green' : '#f5f5f5',
           opacity: 0.2,
         }}
         source={require('../../assets/home-background.png')} 
       >
         <Main>
-          <Image source={require('../../assets/logo.png')} />
+          <Header>
+            { title === 'light' ? (
+              <Image source={require('../../assets/logo.png')} />
+            ) : (
+              <Image source={require('../../assets/logoDracule.png')} />
+            )}
+            <Switch 
+              trackColor={{ false: colors.secundary, true: colors.primary}}
+              onValueChange={toggleTheme}
+            />
+          </Header>
           <View>
             <Title>Seu market place de coleta de resíduos</Title>
             <Description>Ajudamos pessoas a encontrarem pontos de coleta de forma eficiente.</Description>
@@ -104,7 +121,7 @@ const Home: React.FC = () => {
 
         <Footer>
           <RNPickerSelect
-              placeholder={{ label: 'selecione uma uf'}}
+              placeholder={{ color: colors.text ,label: 'selecione uma uf'}}
               value={selectedUf}
               style={pickerSelectStyles}
               useNativeAndroidPickerStyle={false}
@@ -115,7 +132,7 @@ const Home: React.FC = () => {
               }))}
           />
           <RNPickerSelect
-              placeholder={{ label: 'selecione uma cidade'}}
+              placeholder={{ color: colors.text ,label: 'selecione uma cidade'}}
               value={selectedCity}
               style={pickerSelectStyles}
               useNativeAndroidPickerStyle={false}
@@ -129,7 +146,11 @@ const Home: React.FC = () => {
           <Button onPress={handleNavigationToPoints}>
             <ButtonIcon>
               <Text >
-                <Icon name="arrow-right" color="#FFF" size={24} />
+                { title === 'light' ? (
+                  <Icon name="arrow-right" color="#FFF" size={24} />
+                ) : (
+                  <Icon name="arrow-right" color="#8BE9FD" size={24} />
+                )}
               </Text>
             </ButtonIcon>
             <ButtonText>Entrar</ButtonText>

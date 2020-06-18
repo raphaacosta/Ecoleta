@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext, useCallback } from 'react';
 import { Feather as Icon } from '@expo/vector-icons';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { TouchableOpacity, ScrollView, Alert } from 'react-native';
 import { SvgUri } from 'react-native-svg';
+import { ThemeContext } from 'styled-components';
 import * as Location from 'expo-location';
 import api from '../../services/api';
+
 
 import { 
   Container,
@@ -39,15 +41,14 @@ interface Point {
 interface Params {
   uf: string;
   city: string;
-  items: {
-    id: number;
-  }[];
 }
 
 const Points: React.FC = () => {
   const [items, setItems] = useState<Item[]>([]);
   const [points, setPoints] = useState<Point[]>([]);
   const [selectedItems, setSelectedItems] = useState<number[]>([]);
+  
+  const { title, colors } = useContext(ThemeContext);
 
   const navigation = useNavigation();
   const route = useRoute();
@@ -84,22 +85,17 @@ const Points: React.FC = () => {
       params: {
         city,
         uf,
-        items: selectedItems
+        items: selectedItems,
       }
     }).then(response => {
       setPoints(response.data);
     });
   }, [selectedItems]);
 
-  function handleSelectedItem(id: number) {
-    const alreadySelected = selectedItems.findIndex(item => item === id);
-
-    if (alreadySelected >= 0) {
-      const filteredItems = selectedItems.filter(item => item !== id);
-      setSelectedItems(filteredItems);
-    } else {
-      setSelectedItems([ ...selectedItems, id]);
-    }
+  const handleSelectItems = (id: number) => {
+    const index = selectedItems.indexOf(id);
+    if (index >= 0) setSelectedItems(selectedItems.filter(item => item != id))
+    else setSelectedItems([...selectedItems, id])
   }
 
   function handlenavigateBack() {
@@ -116,7 +112,7 @@ const Points: React.FC = () => {
         <TouchableOpacity onPress={handlenavigateBack}>
           <Icon name="arrow-left" size={20} color="#34CB79"/>
         </TouchableOpacity>
-
+        
         <Title>Bem-Vindo</Title>
         <Description>Encontre no mapa um ponto de coleta.</Description>
 
@@ -158,14 +154,14 @@ const Points: React.FC = () => {
         >
           {items.map(item => (
             <Item 
-              key={String(item.id)} 
+              key={item.id} 
               style={[ 
                 selectedItems.includes(item.id) && {
                   borderColor: '#34CB79',
                   borderWidth: 2,
                 }
               ]} 
-              onPress={() => handleSelectedItem(item.id)}
+              onPress={() => handleSelectItems(item.id)}
               activeOpacity={0.6}  
             >
               <SvgUri width={42} height={42} uri={item.image_url}/>

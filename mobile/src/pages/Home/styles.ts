@@ -5,7 +5,14 @@ import Constants from 'expo-constants';
 export const Container = styled.ImageBackground`
   flex: 1;
   padding: 32px;
-  background: #f0f0f5;
+  background: ${({ theme }) => theme.colors.background};
+`;
+
+export const Header = styled.View`
+  margin-top: -20px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
 `;
 
 export const Main = styled.View`
@@ -14,15 +21,15 @@ export const Main = styled.View`
 `;
 
 export const Title = styled.Text`
-  color: #322153;
+  color: ${({ theme }) => theme.colors.title};
   font-size: 27px;
   font-family: 'Ubuntu_700Bold';
   max-width: 260px;
-  margin-top: 44px;
+  margin-top: 24px;
 `;
 
 export const Description = styled.Text`
-  color: #6C6C80;
+  color: ${({ theme }) => theme.colors.text};
   font-size: 16px;
   margin-top: 10px;
   font-family: 'Roboto_400Regular';
@@ -35,7 +42,7 @@ export const Footer = styled.View`
 `;
 
 export const Button = styled(RectButton)`
-  background-color: #34CB79;
+  background-color: ${({ theme }) => theme.title === 'light'  ? theme.colors.primary : theme.colors.button};
   height: 60px;
   flex-direction: row;
   border-radius: 10px;
@@ -58,7 +65,7 @@ export const ButtonText = styled.Text`
   justify-content: center;
   align-items: center;
   text-align: center;
-  color: #FFF;
+  color: ${({ theme }) => theme.title === 'light' ? theme.colors.select : theme.colors.text };
   font-family: Roboto_500Medium;
   font-size: 16px;
 `;

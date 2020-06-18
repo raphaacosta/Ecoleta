@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import { TouchableOpacity, Linking } from 'react-native';
+import React, { useEffect, useState, useContext } from 'react';
+import { Linking } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { Feather as Icon, FontAwesome } from '@expo/vector-icons';
+import { ThemeContext } from 'styled-components';
 import api from '../../services/api';
 import * as MailComposer from 'expo-mail-composer';
 
 import { 
   Container,
+  BackButton,
   PointImage,
   PointName,
   PointItems,
@@ -39,6 +41,7 @@ interface Data {
 
 const Detail = () => {
   const [data, setData] = useState<Data>({} as Data);
+  const { title, colors } = useContext(ThemeContext);
 
   const navigation = useNavigation();
   const route = useRoute();
@@ -73,9 +76,9 @@ const Detail = () => {
   return (
     <>
       <Container>
-        <TouchableOpacity onPress={handleNavigateBack}>
-          <Icon name="arrow-left" size={20} color="#34CB79" />
-        </TouchableOpacity>
+        <BackButton onPress={handleNavigateBack}>
+          <Icon name="arrow-left" size={20} color="#34CB79"/>
+        </BackButton>
 
         <PointImage source={{ uri: data.point.image_url }}/>
 
