@@ -27,7 +27,14 @@ routes.post(
       city: Joi.string().required(),
       uf: Joi.string().required().max(2),
       items: Joi.string().required()
-    })
+    }),
+    query: Joi.object().keys({
+      city: Joi.string().required(),
+      uf: Joi.string().required(),
+      items: Joi.object().keys({
+        id: Joi.number().required(),
+      })
+    }),
   }, {
     abortEarly: false
   }),
