@@ -36,7 +36,8 @@
     "react-native-web": "~0.11.7",
     "react-switch": "^5.0.1",
     "styled-components": "^5.1.1",
-    "toggle-switch-react-native": "^2.1.0"
+    "toggle-switch-react-native": "^2.1.0",
+    "yargs-parser": "^13.1.2"
   },
   "devDependencies": {
     "@babel/core": "^7.8.6",
